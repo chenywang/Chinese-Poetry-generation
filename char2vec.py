@@ -1,22 +1,22 @@
 #! /usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from char_dict import CharDict
+import numpy as np
 from gensim import models
 from numpy.random import uniform
+
+from char_dict import CharDict
 from paths import char2vec_path, check_uptodate
 from poems import Poems
 from singleton import Singleton
 from utils import CHAR_VEC_DIM
-import numpy as np
-import os
 
 
 def _gen_char2vec():
     print("Generating char2vec model ...")
     char_dict = CharDict()
     poems = Poems()
-    model = models.Word2Vec(poems, size = CHAR_VEC_DIM, min_count = 5)
+    model = models.Word2Vec(poems, size=CHAR_VEC_DIM, min_count=5)
     embedding = uniform(-1.0, 1.0, [len(char_dict), CHAR_VEC_DIM])
     for i, ch in enumerate(char_dict):
         if ch in model.wv:
@@ -40,10 +40,9 @@ class Char2Vec(Singleton):
 
     def get_vects(self, text):
         return np.stack(map(self.get_vect, text)) if len(text) > 0 \
-                else np.reshape(np.array([[]]), [0, CHAR_VEC_DIM])
+            else np.reshape(np.array([[]]), [0, CHAR_VEC_DIM])
 
 
 # For testing purpose.
 if __name__ == '__main__':
     char2vec = Char2Vec()
-

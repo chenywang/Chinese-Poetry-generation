@@ -4,7 +4,8 @@
 
 def is_cn_char(ch):
     """ Test if a char is a Chinese character. """
-    return ch >= u'\u4e00' and ch <= u'\u9fa5'
+    return isinstance(ch, unicode) and u'\u4e00' <= ch <= u'\u9fa5'
+
 
 def is_cn_sentence(sentence):
     """ Test if a sentence is made of Chinese characters. """
@@ -12,6 +13,7 @@ def is_cn_sentence(sentence):
         if not is_cn_char(ch):
             return False
     return True
+
 
 def split_sentences(text):
     """ Split a piece of text into a list of sentences. """
@@ -26,6 +28,6 @@ def split_sentences(text):
             i = j + 1
     return sentences
 
+
 NUM_OF_SENTENCES = 4
 CHAR_VEC_DIM = 512
-

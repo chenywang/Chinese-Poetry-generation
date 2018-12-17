@@ -1,27 +1,28 @@
 #! /usr/bin/env python3
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
+
+import os
 
 from paths import raw_dir, char_dict_path, check_uptodate
 from singleton import Singleton
 from utils import is_cn_char
-import os
-
 
 MAX_DICT_SIZE = 6000
 
 _corpus_list = ['qts_tab.txt', 'qss_tab.txt', 'qsc_tab.txt', 'qtais_tab.txt',
-        'yuan.all', 'ming.all', 'qing.all']
+                'yuan.all', 'ming.all', 'qing.all']
 
 
 def start_of_sentence():
     return '^'
 
+
 def end_of_sentence():
     return '$'
 
+
 def _gen_char_dict():
     print("Generating dictionary from corpus ...")
-    
     # Count char frequencies.
     char_cnts = dict()
     for corpus in _corpus_list:
@@ -31,9 +32,9 @@ def _gen_char_dict():
                     char_cnts[ch] = 1
                 else:
                     char_cnts[ch] += 1
-    
+
     # Sort in decreasing order of frequency.
-    cnt2char = sorted(char_cnts.items(), key = lambda x: -x[1])
+    cnt2char = sorted(char_cnts.items(), key=lambda x: -x[1])
 
     # Store most popular chars into the file.
     with open(char_dict_path, 'w') as fout:
@@ -86,4 +87,3 @@ if __name__ == '__main__':
         ch = char_dict.int2char(i)
         print(ch)
         assert i == char_dict.char2int(ch)
-

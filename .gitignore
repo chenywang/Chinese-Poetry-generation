@@ -3,3 +3,7 @@ show.py
 data/
 save/
 .backup/
+
+.idea/
+*.json
+*.csv

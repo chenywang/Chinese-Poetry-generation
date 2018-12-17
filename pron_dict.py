@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from char_dict import CharDict
+from word_dict import WordDict
 from paths import raw_dir
 from singleton import Singleton
 import os
@@ -55,7 +55,7 @@ def _get_rhyme(pinyin):
 class PronDict(Singleton):
 
     def __init__(self):
-        self.char_dict = CharDict()
+        self.char_dict = WordDict()
         self._pron_dict = dict()
         with open(_pinyin_path, 'r') as fin:
             for line in fin.readlines():

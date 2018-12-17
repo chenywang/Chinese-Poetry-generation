@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding:utf-8 -*-
 
-from char_dict import end_of_sentence, start_of_sentence
+from word_dict import end_of_sentence, start_of_sentence
 from paths import gen_data_path, plan_data_path, check_uptodate
 from poems import Poems
 from rank_words import RankedWords

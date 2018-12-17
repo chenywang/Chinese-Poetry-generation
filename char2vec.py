@@ -5,7 +5,7 @@ import numpy as np
 from gensim import models
 from numpy.random import uniform
 
-from char_dict import CharDict
+from word_dict import WordDict
 from paths import char2vec_path, check_uptodate
 from poems import Poems
 from singleton import Singleton
@@ -14,7 +14,7 @@ from utils import CHAR_VEC_DIM
 
 def _gen_char2vec():
     print("Generating char2vec model ...")
-    char_dict = CharDict()
+    char_dict = WordDict()
     poems = Poems()
     model = models.Word2Vec(poems, size=CHAR_VEC_DIM, min_count=5)
     embedding = uniform(-1.0, 1.0, [len(char_dict), CHAR_VEC_DIM])
@@ -30,7 +30,7 @@ class Char2Vec(Singleton):
         if not check_uptodate(char2vec_path):
             _gen_char2vec()
         self.embedding = np.load(char2vec_path)
-        self.char_dict = CharDict()
+        self.char_dict = WordDict()
 
     def get_embedding(self):
         return self.embedding
